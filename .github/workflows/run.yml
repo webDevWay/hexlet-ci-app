@@ -1,0 +1,22 @@
+name: show-directory
+# on – определяет события, которые запускают воркфлоу
+on: push
+#для проекта на Node.js
+jobs:
+  build: # имя взято для примера
+    runs-on: ubuntu-latest
+
+    steps:
+      # Клонируем репозиторий
+      - uses: actions/checkout@v4
+      # Устанавливаем Node.js
+      - uses: actions/setup-node@v4
+      # Ставим зависимости
+      - run: make install
+      # Запускаем линтер
+      - run: make test
+      # Запускаем тесты
+      # у шагов может быть имя, иногда это помогает отладке
+      # имя выводится на Github при просмотре сборки
+      - name: run tests
+        run: make lint # name и run относятся к одной задаче, поэтому дефис ставится только перед name
